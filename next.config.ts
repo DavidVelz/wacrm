@@ -86,6 +86,7 @@ const nextConfig: NextConfig = {
    */
   allowedDevOrigins: [
     "*.ngrok-free.app",
+    "clutch-unissued-folic.ngrok-free.dev",
     "*.ngrok.app",
     "*.ngrok.io",
     "*.trycloudflare.com",
