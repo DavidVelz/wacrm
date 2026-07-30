@@ -159,7 +159,7 @@ export default function AutomationsPage() {
   const showTemplates = automations.length < 3
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mx-auto w-full max-w-7xl px-6 py-8 xl:px-10 2xl:px-12">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>

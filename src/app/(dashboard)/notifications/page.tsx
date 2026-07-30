@@ -10,6 +10,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { Card } from "@/components/ui/card";
 
 // Icon per notification type. Only one type exists today
 // (conversation_assigned) but this keeps future types a one-line add.
@@ -162,7 +163,7 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <Card className="mx-auto w-full max-w-7xl px-6 py-8 xl:px-10 2xl:px-12">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Notifications</h1>
@@ -263,6 +264,6 @@ export default function NotificationsPage() {
           })}
         </ul>
       )}
-    </div>
+    </Card>
   );
 }

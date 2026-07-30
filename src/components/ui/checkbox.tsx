@@ -1,39 +1,26 @@
 "use client"
 
-import * as React from "react"
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox"
-import { Check, Minus } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { CheckIcon } from "lucide-react"
 
-// Root: primary token when checked or indeterminate (responds to the active
-// color theme), input border when unchecked. Mirrors switch.tsx conventions.
-function Checkbox({
-  className,
-  ...props
-}: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+function Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "peer size-4 shrink-0 cursor-pointer rounded-[4px] border border-input bg-card shadow-sm transition-colors",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "disabled:cursor-not-allowed disabled:opacity-50",
-        "data-[checked]:border-primary data-[checked]:bg-primary data-[checked]:text-primary-foreground",
-        "data-[indeterminate]:border-primary data-[indeterminate]:bg-primary data-[indeterminate]:text-primary-foreground",
-        className,
+        "peer relative flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input transition-colors outline-none group-has-disabled/field:opacity-50 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 aria-invalid:aria-checked:border-primary dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary",
+        className
       )}
       {...props}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="flex items-center justify-center text-current"
+        className="grid place-content-center text-current transition-none [&>svg]:size-3.5"
       >
-        {props.indeterminate ? (
-          <Minus className="size-3.5" />
-        ) : (
-          <Check className="size-3.5" />
-        )}
+        <CheckIcon
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )

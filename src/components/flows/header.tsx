@@ -58,7 +58,7 @@ export function EditorHeader() {
   } = useFlowEditor();
 
   return (
-    <div className="flex flex-col gap-1.5 px-6 pt-5">
+    <div className="flex flex-col gap-1.5 pt-1">
       <div className="flex flex-wrap items-center gap-3">
         {/* ---- left: back · icon · name · status · edited ---- */}
         <button
@@ -161,7 +161,7 @@ export function EditorHeader() {
       </div>
 
       {/* ---- description note (subtle, inline-editable) ---- */}
-      <input
+      {/* <input
         value={state.description}
         onChange={(e) =>
           setState((s) => ({ ...s, description: e.target.value }))
@@ -169,7 +169,7 @@ export function EditorHeader() {
         placeholder="Add a short description (internal — customers don't see this)"
         aria-label="Flow description"
         className="w-full max-w-[78ch] rounded-md border border-transparent bg-transparent px-2 py-1 text-[13px] text-muted-foreground outline-none transition-colors placeholder:text-muted-foreground/60 hover:bg-muted/50 focus:border-primary focus:bg-transparent focus:text-foreground"
-      />
+      /> */}
     </div>
   );
 }

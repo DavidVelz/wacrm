@@ -102,7 +102,7 @@ export function FlowEditorShell({ initialFlow, initialNodes }: Props) {
             Omitted entirely on mobile (canvas is unavailable there and
             the legend is lg-only), so there's no empty band above the
             stage on small screens. */}
-        {!isMobile && (
+        {/* {!isMobile && (
           <div className="flex items-center gap-4 px-6 py-3.5">
             <div
               role="group"
@@ -137,10 +137,10 @@ export function FlowEditorShell({ initialFlow, initialNodes }: Props) {
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
         {/* ---- stage: the active view, owning its own overflow ---- */}
-        <div className="relative mx-6 min-h-0 flex-1 overflow-hidden rounded-xl border border-border bg-card-2">
+        <div className="relative mx-6 mt-6 min-h-0 flex-1 overflow-hidden rounded-xl border border-border bg-card-2">
           {effectiveView === "canvas" ? (
             <FlowCanvas />
           ) : (
@@ -151,9 +151,9 @@ export function FlowEditorShell({ initialFlow, initialNodes }: Props) {
         </div>
 
         {/* ---- validation / activate-readiness bar ---- */}
-        <div className="px-6 pb-5 pt-3">
+        {/* <div className="px-6 pb-5 pt-3">
           <ValidationPanel />
-        </div>
+        </div> */}
       </div>
     </FlowEditorProvider>
   );
@@ -181,31 +181,31 @@ function useMatchMedia(query: string): boolean {
   return matches;
 }
 
-function SegButton({
-  active,
-  onClick,
-  icon,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  icon: React.ReactNode;
-  label: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[12.5px] font-medium transition-colors",
-        active
-          ? "bg-card text-foreground shadow-sm"
-          : "text-muted-foreground hover:text-foreground",
-      )}
-    >
-      {icon}
-      {label}
-    </button>
-  );
-}
+// function SegButton({
+//   active,
+//   onClick,
+//   icon,
+//   label,
+// }: {
+//   active: boolean;
+//   onClick: () => void;
+//   icon: React.ReactNode;
+//   label: string;
+// }) {
+//   return (
+//     <button
+//       type="button"
+//       onClick={onClick}
+//       aria-pressed={active}
+//       className={cn(
+//         "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[12.5px] font-medium transition-colors",
+//         active
+//           ? "bg-card text-foreground shadow-sm"
+//           : "text-muted-foreground hover:text-foreground",
+//       )}
+//     >
+//       {icon}
+//       {label}
+//     </button>
+//   );
+// }

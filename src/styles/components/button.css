@@ -1,0 +1,17 @@
+/* shadcn/ui Button */
+
+[data-slot="button"]{
+
+    transition:
+        background-color .18s,
+        color .18s,
+        border-color .18s,
+        transform .18s;
+
+}
+
+[data-slot="button"]:active{
+
+    transform:scale(.98);
+
+}

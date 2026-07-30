@@ -1,0 +1,24 @@
+/* ==========================================================
+   GRAPHITE (Default)
+   Premium neutral gray
+   ========================================================== */
+
+:root,
+html[data-theme="graphite"] {
+
+  --primary: oklch(15.434% 0.00002 271.152);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --primary-hover: oklch(0.64 0.01 260);
+
+  --primary-soft: oklch(0.58 0.01 260 / .12);
+  --primary-soft-2: oklch(0.58 0.01 260 / .22);
+
+  --ring: var(--primary);
+
+  --chart-1: oklch(0.58 0.01 260);
+
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-ring: var(--primary);
+}

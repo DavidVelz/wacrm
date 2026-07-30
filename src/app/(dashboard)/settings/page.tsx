@@ -84,20 +84,28 @@ function SettingsPageInner() {
   };
 
   return (
+  <div className="mx-auto w-full max-w-7xl px-6 py-8 xl:px-10 2xl:px-12">
     <div>
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          {t('pageTitle')}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {t('pageDesc')}
-        </p>
-      </div>
+      <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+        {t("pageTitle")}
+      </h1>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[236px_minmax(0,1fr)] lg:items-start">
-        <SettingsRail active={section} onSelect={go} hints={hints} />
-        <div className="min-w-0">{panel[section]}</div>
+      <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+        {t("pageDesc")}
+      </p>
+    </div>
+
+    <div className="mt-8 grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
+      <SettingsRail
+        active={section}
+        onSelect={go}
+        hints={hints}
+      />
+
+      <div className="min-w-0">
+        {panel[section]}
       </div>
     </div>
-  );
+  </div>
+);
 }

@@ -1,0 +1,28 @@
+input,
+textarea,
+select{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+}
+
+input:hover,
+textarea:hover{
+
+    border-color:color-mix(in srgb,var(--border) 60%,white);
+
+}
+
+input:focus,
+textarea:focus{
+
+    border-color:var(--ring);
+
+    box-shadow:
+        0 0 0 4px var(--primary-soft);
+
+}

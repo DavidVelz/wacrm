@@ -1,0 +1,19 @@
+.card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-xl);
+
+    transition:.18s;
+
+}
+
+.card:hover{
+
+    background:var(--card-2);
+
+    border-color:color-mix(in srgb,var(--border) 85%,white);
+
+}

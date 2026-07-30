@@ -1,0 +1,23 @@
+table{
+
+    border-collapse:collapse;
+
+}
+
+tbody tr{
+
+    transition:.16s;
+
+}
+
+tbody tr:hover{
+
+    background:var(--card-2);
+
+}
+
+td{
+
+    border-bottom:1px solid var(--border);
+
+}

@@ -1,0 +1,45 @@
+:root,
+html[data-mode="light"] {
+
+  --background: var(--gray-50);
+
+  --foreground: var(--gray-900);
+
+  --card: white;
+
+  --card-hover: var(--gray-25);
+
+  --popover: white;
+
+  --secondary: var(--gray-100);
+
+  --muted: var(--gray-100);
+
+  --muted-foreground: var(--gray-600);
+
+  --accent: var(--gray-100);
+
+  --border: var(--gray-200);
+
+  --input: var(--gray-200);
+
+  --ring: var(--brand-500);
+
+  --primary: var(--brand-600);
+
+  --primary-hover: var(--brand-700);
+
+  --primary-foreground: white;
+
+  --primary-soft: var(--brand-100);
+
+  --primary-soft-2: var(--brand-50);
+
+  --success: var(--green);
+
+  --warning: var(--yellow);
+
+  --destructive: var(--red);
+
+}
+

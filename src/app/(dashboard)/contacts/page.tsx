@@ -57,6 +57,7 @@ import { CustomFieldsManager } from '@/components/contacts/custom-fields-manager
 import { useCan } from '@/hooks/use-can';
 import { GatedButton } from '@/components/ui/gated-button';
 import { useTranslations } from 'next-intl';
+import { Card } from '@/components/ui/card';
 
 const PAGE_SIZE = 25;
 
@@ -340,7 +341,7 @@ export default function ContactsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto w-full max-w-7xl px-6 py-8 xl:px-10 2xl:px-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -528,7 +529,7 @@ export default function ContactsPage() {
       )}
 
       {/* Table */}
-      <div className="rounded-lg border border-border overflow-hidden">
+      <Card className="space-y-6 rounded-lg border border-border overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="border-border hover:bg-transparent">
@@ -691,7 +692,7 @@ export default function ContactsPage() {
             )}
           </TableBody>
         </Table>
-      </div>
+      </Card>
 
       {/* Pagination */}
       {totalPages > 1 && (

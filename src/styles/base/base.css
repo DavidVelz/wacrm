@@ -1,0 +1,30 @@
+@layer base {
+
+  *{
+    border-color: var(--border);
+}
+
+  html {
+    @apply font-sans;
+    color-scheme: dark;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html[data-mode="light"] {
+    color-scheme: light;
+  }
+
+  body{
+    background: var(--background);
+    color: var(--foreground);
+}
+
+  ::selection {
+    background: var(--primary-soft-2);
+  }
+
+}
+
+

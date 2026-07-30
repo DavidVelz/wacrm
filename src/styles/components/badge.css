@@ -1,0 +1,9 @@
+[data-slot="badge"]{
+
+    background:var(--primary-soft);
+
+    color:var(--primary);
+
+    border:1px solid color-mix(in srgb,var(--primary) 20%,transparent);
+
+}
