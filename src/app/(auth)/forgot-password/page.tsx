@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
     // });
 
     if (error) {
-      setError(error.message);
+      setError(error);
       setLoading(false);
       return;
     }
