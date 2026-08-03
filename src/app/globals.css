@@ -58,7 +58,7 @@
 }
 
 :root {
-    --background: #ffffff;
+    --background: oklch(1 0 0);
     --card: #ffffff;
     --card-foreground: oklch(0.145 0 0);
     --popover: #ffffff;
@@ -132,12 +132,10 @@ html[data-mode="dark"] {
     @apply border-border outline-ring/50;
     }
   body {
-    @apply text-foreground;
-    background-color: #f5f5f5;
+    @apply bg-background text-foreground;
     }
   html {
     @apply font-sans;
-    background-color: #f5f5f5;
     }
 }
 

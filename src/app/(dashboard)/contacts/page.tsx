@@ -384,7 +384,7 @@ export default function ContactsPage() {
       </div>
 
       {/* Search + tag filter */}
-      <div className="space-y-2">
+      <div className="space-y-2 mt-5">
         <div className="flex flex-col sm:flex-row gap-2">
           <div className="relative w-full max-w-sm">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
@@ -529,7 +529,7 @@ export default function ContactsPage() {
       )}
 
       {/* Table */}
-      <Card className="space-y-6 rounded-lg border border-border overflow-hidden">
+      <Card className="space-y-6 rounded-lg border border-border overflow-hidden mt-10">
         <Table>
           <TableHeader>
             <TableRow className="border-border hover:bg-transparent">
