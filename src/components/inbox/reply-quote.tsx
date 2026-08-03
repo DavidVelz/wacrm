@@ -29,46 +29,89 @@ export function ReplyQuote({
 }: ReplyQuoteProps) {
   const t = useTranslations("Inbox.replyQuote");
   const isChip = !!onDismiss;
+
   return (
     <div
       className={cn(
-        "flex items-start gap-2 border-l-2 px-2 py-1",
-        onPrimary ? "border-primary-foreground/50" : "border-primary",
-        isChip
-          ? "rounded-md bg-muted/80"
-          : onPrimary
-            ? "mb-1.5 rounded-md bg-primary-foreground/15"
-            : "mb-1.5 rounded-md bg-background/20",
+        "mb-2 flex items-start gap-3 border-l-4 pl-2 pr-3 pt-2 transition-colors duration-200",
+
+        onPrimary
+          ? `
+            border-l-emerald-600
+            bg-emerald-50/90
+
+            dark:border-l-emerald-500
+            dark:bg-emerald-950/20
+          `
+          : `
+            border-l-sky-600
+            bg-slate-50/90
+
+            dark:border-l-sky-500
+            dark:bg-slate-800/50
+          `,
+
+        isChip &&
+          `
+            bg-slate-100
+
+            dark:bg-slate-800
+          `,
       )}
     >
       <div className="min-w-0 flex-1 overflow-hidden">
         <div
           className={cn(
-            "truncate text-[11px] font-medium",
-            onPrimary ? "text-primary-foreground" : "text-primary",
+            "mb-1 text-xs font-semibold",
+
+            onPrimary
+              ? "text-emerald-700 dark:text-emerald-300"
+              : "text-sky-700 dark:text-sky-300",
           )}
         >
           {authorLabel}
         </div>
-        {/* Wrap the preview instead of truncating to a single line.
-         *  `truncate` (white-space: nowrap) forced the quote onto one
-         *  impossibly-wide line and — because the parent flex chain
-         *  lacked `min-w-0` at every step — pushed the entire inbox
-         *  layout wider, shoving the contact sidebar off-screen.
-         *  `break-words` also wraps long URLs that have no whitespace
-         *  to break on. Issue #165. */}
-        <div className="whitespace-pre-wrap break-words text-xs text-foreground/80">
+
+        <div
+          className="
+            whitespace-pre-wrap
+            break-words
+            text-[13px]
+            leading-6
+            text-slate-700
+
+            dark:text-slate-300
+          "
+        >
           {preview}
         </div>
       </div>
+
       {onDismiss && (
         <button
           type="button"
           onClick={onDismiss}
           aria-label={t("cancelReply")}
-          className="flex h-6 w-6 shrink-0 items-center justify-center rounded text-muted-foreground hover:bg-muted hover:text-foreground"
+          className="
+            flex
+            h-7
+            w-7
+            shrink-0
+            items-center
+            justify-center
+            rounded-lg
+
+            text-slate-400
+
+            hover:bg-slate-200
+            hover:text-slate-700
+
+            dark:text-slate-500
+            dark:hover:bg-slate-700
+            dark:hover:text-slate-200
+          "
         >
-          <X className="h-3.5 w-3.5" />
+          <X className="h-4 w-4" />
         </button>
       )}
     </div>

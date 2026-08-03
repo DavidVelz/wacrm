@@ -9,7 +9,7 @@ import {
 } from "@/lib/inbox/conversations";
 import { cn } from "@/lib/utils";
 import type { Conversation, ConversationStatus, Tag } from "@/types";
-import { Search, ChevronDown, X } from "lucide-react";
+import { Search, ChevronDown, X, MessageCircle, MessagesSquare } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { FaWhatsapp } from "react-icons/fa";
 
 interface ConversationListProps {
   activeConversationId: string | null;
@@ -54,7 +55,7 @@ export function ConversationList({
   resyncToken = 0,
 }: ConversationListProps) {
   const t = useTranslations("Inbox.conversationList");
-  
+
   const FILTER_OPTIONS: { label: string; value: InboxFilter }[] = useMemo(() => [
     { label: t("filterAll"), value: "all" },
     { label: t("filterUnread"), value: "unread" },
@@ -223,7 +224,7 @@ export function ConversationList({
     // w-full on mobile so the list occupies the whole viewport when it's
     // the single pane showing; fixed 320px on desktop where it shares the
     // row with the thread + contact sidebar.
-    <div className="flex h-full w-full flex-col border-r border-border bg-card lg:w-80">
+    <div className="flex h-full w-full flex-col border-r border-border bg-card lg:w-92">
       {/* Search + Filter */}
       <div className="space-y-2 border-b border-border p-3">
         <div className="relative">
@@ -239,8 +240,8 @@ export function ConversationList({
         <div className="flex flex-wrap items-center gap-1">
           <DropdownMenu>
             <DropdownMenuTrigger className="inline-flex items-center justify-center h-7 gap-1 px-2 text-xs text-muted-foreground hover:text-foreground rounded-md hover:bg-muted">
-                {activeFilter?.label ?? t("filterAll")}
-                <ChevronDown className="h-3 w-3" />
+              {activeFilter?.label ?? t("filterAll")}
+              <ChevronDown className="h-3 w-3" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="start"
@@ -446,55 +447,83 @@ function ConversationItem({
 
   const timeAgo = conversation.last_message_at
     ? formatDistanceToNow(new Date(conversation.last_message_at), {
-        addSuffix: false,
-      })
+      addSuffix: false,
+    })
     : "";
 
   return (
     <button
       onClick={handleClick}
       className={cn(
-        "flex w-full items-start gap-3 px-3 py-3 text-left transition-colors hover:bg-muted/50",
-        isActive && "border-l-2 border-primary bg-muted/70"
+        "group relative flex w-full items-start gap-3 px-4 py-3 text-left transition-all duration-200",
+
+        !isActive && "hover:bg-accent/60",
+
+        isActive && "bg-primary/10"
       )}
     >
+      {/* Barra lateral */}
+      {isActive && (
+        <span className="absolute inset-y-2 left-0 w-1 rounded-r-full bg-primary" />
+      )}
+
       {/* Avatar */}
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-foreground">
-        {contact?.avatar_url ? (
-          <img
-            src={contact.avatar_url}
-            alt={displayName}
-            className="h-10 w-10 rounded-full object-cover"
-          />
-        ) : (
-          initials
-        )}
+      <div className="relative ml-2 shrink-0">
+        <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-muted">
+          {contact?.avatar_url ? (
+            <img
+              src={contact.avatar_url}
+              alt={displayName}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <span className="text-sm font-semibold text-foreground">
+              {initials}
+            </span>
+          )}
+        </div>
+
+        <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-background">
+          <FaWhatsapp className="h-3 w-3 text-white" />
+        </div>
       </div>
 
-      {/* Content */}
+      {/* Contenido */}
       <div className="min-w-0 flex-1">
-        <div className="flex items-center justify-between gap-2">
-          <span className="truncate text-sm font-medium text-foreground">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="truncate text-[15px] font-semibold text-foreground">
             {displayName}
+          </h3>
+
+          <span
+            className={cn(
+              "text-[11px]",
+              isActive
+                ? "font-medium text-primary"
+                : "text-muted-foreground"
+            )}
+          >
+            {timeAgo}
           </span>
-          <span className="shrink-0 text-[10px] text-muted-foreground">{timeAgo}</span>
         </div>
-        <div className="mt-0.5 flex items-center justify-between gap-2">
-          <p className="truncate text-xs text-muted-foreground">
+
+        <div className="mt-1 flex items-center justify-between gap-3">
+          <p className="truncate text-[13px] text-muted-foreground">
             {conversation.last_message_text || t("noMessagesYet")}
           </p>
-          <div className="flex shrink-0 items-center gap-1.5">
+
+          <div className="flex items-center gap-2">
             {conversation.unread_count > 0 && (
-              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] font-semibold text-primary-foreground">
                 {conversation.unread_count}
               </span>
             )}
+
             <span
               className={cn(
-                "h-2 w-2 rounded-full",
+                "h-2.5 w-2.5 rounded-full",
                 STATUS_COLORS[conversation.status]
               )}
-              title={conversation.status}
             />
           </div>
         </div>

@@ -33,15 +33,15 @@ interface MessageBubbleProps {
 function StatusIcon({ status }: { status: Message["status"] }) {
   switch (status) {
     case "sending":
-      return <Clock className="h-3 w-3 text-muted-foreground" />;
+      return <Clock className="h-3 w-3 text-slate-500 dark:text-slate-400" />;
     case "sent":
-      return <Check className="h-3 w-3 text-muted-foreground" />;
+      return <Check className="h-3 w-3 text-slate-500 dark:text-slate-400" />;
     case "delivered":
-      return <CheckCheck className="h-3 w-3 text-muted-foreground" />;
+      return <CheckCheck className="h-3 w-3 text-slate-500 dark:text-slate-400" />;
     case "read":
-      return <CheckCheck className="h-3 w-3 text-blue-400" />;
+      return <CheckCheck className="h-3 w-3 text-blue-600 dark:text-blue-400" />;
     case "failed":
-      return <XCircle className="h-3 w-3 text-red-400" />;
+      return <XCircle className="h-3 w-3 text-red-500 dark:text-red-400" />;
     default:
       return null;
   }
@@ -119,25 +119,33 @@ function MediaImage({ url, alt }: { url: string; alt: string }) {
   );
 }
 
-function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof useTranslations> }) {
+function MessageContent({
+  message,
+  t,
+  textClassName,
+}: {
+  message: Message,
+  t: ReturnType<typeof useTranslations>,
+  textClassName?: string,
+}) {
   switch (message.content_type) {
     case "text":
       return (
-        <p className="whitespace-pre-wrap break-words text-sm">
+        <p className={cn("whitespace-pre-wrap break-words text-sm leading-6", textClassName)}>
           {message.content_text}
         </p>
       );
 
     case "image":
       return (
-        <div>
+        <div className="w-full">
           {message.media_url ? (
             <MediaImage url={message.media_url} alt="Shared image" />
           ) : (
             <MediaUnavailable label={t("photo")} t={t} />
           )}
           {message.content_text && (
-            <p className="mt-1 whitespace-pre-wrap break-words text-sm">
+            <p className={cn("mt-1 whitespace-pre-wrap break-words text-sm leading-6", textClassName)}>
               {message.content_text}
             </p>
           )}
@@ -146,7 +154,7 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
 
     case "video":
       return (
-        <div>
+        <div className="w-full">
           {message.media_url ? (
             <video
               src={message.media_url}
@@ -157,7 +165,7 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
             <MediaUnavailable label={t("video")} t={t} />
           )}
           {message.content_text && (
-            <p className="mt-1 whitespace-pre-wrap break-words text-sm">
+            <p className={cn("mt-1 whitespace-pre-wrap break-words text-sm leading-6", textClassName)}>
               {message.content_text}
             </p>
           )}
@@ -166,7 +174,7 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
 
     case "audio":
       return (
-        <div>
+        <div className="w-full">
           {message.media_url ? (
             <audio src={message.media_url} controls className="max-w-60" />
           ) : (
@@ -184,7 +192,7 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
           href={message.media_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2 text-sm hover:bg-muted"
+          className={cn("flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2 text-sm hover:bg-muted", textClassName)}
         >
           <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
           <span className="truncate">
@@ -195,13 +203,13 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
 
     case "template":
       return (
-        <div>
+        <div className="w-full">
           <span className="mb-1 inline-flex items-center gap-1 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-medium text-primary">
             <LayoutTemplate className="h-3 w-3" />
             {t("template")}
           </span>
           {message.content_text && (
-            <p className="mt-1 whitespace-pre-wrap break-words text-sm">
+            <p className="mt-1 whitespace-pre-wrap break-words text-sm leading-6 text-current">
               {message.content_text}
             </p>
           )}
@@ -210,7 +218,7 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
 
     case "location":
       return (
-        <div className="flex items-center gap-2 text-sm">
+        <div className={cn("flex items-center gap-2 text-sm", textClassName)}>
           <MapPin className="h-4 w-4 shrink-0 text-muted-foreground" />
           <span>{message.content_text || t("locationShared")}</span>
         </div>
@@ -236,14 +244,14 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
               <CornerDownLeft className="h-3 w-3" />
               {t("buttonReply")}
             </span>
-            <p className="whitespace-pre-wrap break-words text-sm">
+            <p className={cn("whitespace-pre-wrap break-words text-sm leading-6", textClassName)}>
               {message.content_text || t("interactiveReply")}
             </p>
           </div>
         );
       }
       return (
-        <p className="whitespace-pre-wrap break-words text-sm">
+        <p className={cn("whitespace-pre-wrap break-words text-sm leading-6", textClassName)}>
           {message.content_text || t("interactiveReply")}
         </p>
       );
@@ -251,7 +259,7 @@ function MessageContent({ message, t }: { message: Message, t: ReturnType<typeof
 
     default:
       return (
-        <p className="whitespace-pre-wrap break-words text-sm">
+        <p className={cn("whitespace-pre-wrap break-words text-sm leading-6", textClassName)}>
           {message.content_text || t("unsupported")}
         </p>
       );
@@ -275,16 +283,16 @@ export function MessageBubble({
   return (
     <div
       className={cn(
-        "flex flex-col",
+        "flex w-full flex-col",
         isAgent ? "items-end" : "items-start",
       )}
     >
       <div
         className={cn(
-          "relative rounded-2xl px-3 py-2",
+          "overflow-hidden rounded-2xl shadow-sm",
           isAgent
-            ? "rounded-br-md bg-primary text-primary-foreground"
-            : "rounded-bl-md bg-muted text-foreground",
+            ? "bg-emerald-50/95 text-emerald-950 dark:bg-emerald-950/35 dark:text-emerald-50"
+            : "bg-white text-slate-900 dark:bg-slate-800 dark:text-slate-100",
         )}
       >
         {reply && (
@@ -294,40 +302,45 @@ export function MessageBubble({
             onPrimary={isAgent}
           />
         )}
-        <MessageContent message={message} t={t} />
-        <div
+        <div className="px-3 py-2">
+          <MessageContent
+            message={message}
+            t={t}
+            textClassName={isAgent ? "text-emerald-950 dark:text-emerald-50" : "text-slate-900 dark:text-slate-100"}
+          />
+        </div>
+      </div>
+      <div
+        className={cn(
+          "mt-1 flex items-center gap-1 text-[10px]",
+          isAgent ? "self-end pr-1" : "self-start pl-1",
+        )}
+      >
+        {/* AI badge — only on replies the auto-reply bot generated
+            (always outbound, so it sits on the primary fill). Lets
+            agents tell an AI reply from their own / a Flow's at a
+            glance. */}
+        {message.ai_generated && (
+          <span
+            className="inline-flex items-center gap-0.5 rounded-full bg-emerald-100/80 px-1.5 py-px font-semibold uppercase leading-none tracking-wide text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
+            title={t("aiBadgeTitle")}
+          >
+            <Sparkles className="h-2.5 w-2.5" />
+            {t("aiBadge")}
+          </span>
+        )}
+        <span
           className={cn(
-            "mt-1 flex items-center gap-1",
-            isAgent ? "justify-end" : "justify-start",
+            // The timestamp and status now sit outside the bubble so they
+            // read as metadata rather than part of the message body.
+            isAgent
+              ? "text-emerald-800/85 dark:text-emerald-300/85"
+              : "text-slate-600 dark:text-slate-400",
           )}
         >
-          {/* AI badge — only on replies the auto-reply bot generated
-              (always outbound, so it sits on the primary fill). Lets
-              agents tell an AI reply from their own / a Flow's at a
-              glance. */}
-          {message.ai_generated && (
-            <span
-              className="inline-flex items-center gap-0.5 rounded-full bg-primary-foreground/20 px-1.5 py-px text-[9px] font-semibold uppercase leading-none tracking-wide text-primary-foreground"
-              title={t("aiBadgeTitle")}
-            >
-              <Sparkles className="h-2.5 w-2.5" />
-              {t("aiBadge")}
-            </span>
-          )}
-          <span
-            className={cn(
-              "text-[10px]",
-              // Outbound bubbles sit on the primary fill, so the
-              // timestamp must read against that (not the neutral
-              // foreground) — otherwise it goes low-contrast in light
-              // mode. Inbound bubbles use the muted surface.
-              isAgent ? "text-primary-foreground/70" : "text-muted-foreground",
-            )}
-          >
-            {time}
-          </span>
-          {isAgent && <StatusIcon status={message.status} />}
-        </div>
+          {time}
+        </span>
+        {isAgent && <StatusIcon status={message.status} />}
       </div>
       {reactions && reactions.length > 0 && onToggleReaction && (
         <MessageReactions
